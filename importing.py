@@ -28,13 +28,26 @@ def get_all_tables(db_name):
     dataframes = {table_name : import_from_sqlite(db_name, table_name) for table_name in get_table_names(db_name)}
     return dataframes
 
-print("Loading data...")
-dfs = get_all_tables('data/database.sqlite')
-print("Data loaded.")
-print("\n")
-for i in dfs:
-    print(i, ":", dfs[i].shape)
-    for j in dfs[i]:
-        print("\t", j, ":", dfs[i][j].dtype)
+def get_data_numpy(verbose = True):
+    if verbose:
+        print("Loading data...")
+    dfs = get_all_tables('data/database.sqlite')
+    if verbose:
+        print("Data loaded.")
+        print("\n")
+        print("Removing empty rows...")
+    for table_name in dfs:
+        dfs[table_name] = dfs[table_name].dropna()
+    if verbose:
+        print("Empty rows removed.")
+        for i in dfs:
+            print(i, ":", dfs[i].shape)
+            for j in dfs[i]:
+                print("\t", j, ":", dfs[i][j].dtype)
+        print("\n")
+    np_data = {table_name : dfs[table_name].to_numpy() for table_name in dfs}
+    return np_data
+
+np_data = get_data_numpy()
 
 IPython.embed()
