@@ -28,13 +28,13 @@ def get_all_tables(db_name):
     dataframes = {table_name : import_from_sqlite(db_name, table_name) for table_name in get_table_names(db_name)}
     return dataframes
 
-print("Loading data...")
-dfs = get_all_tables('data/database.sqlite')
-print("Data loaded.")
-print("\n")
-for i in dfs:
-    print(i, ":", dfs[i].shape)
-    for j in dfs[i]:
-        print("\t", j, ":", dfs[i][j].dtype)
+def print_data():
+    print("Loading data...")
+    dfs = get_all_tables('data/database.sqlite')
+    print("Data loaded.")
+    print("\n")
+    for i in dfs:
+        print(i, ":", dfs[i].shape)
+        for j in dfs[i]:
+            print("\t", j, ":", dfs[i][j].dtype)
 
-IPython.embed()
