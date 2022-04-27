@@ -27,7 +27,6 @@ def get_all_tables(db_name):
     repeated players
     '''
     dataframes = {table_name : import_from_sqlite(db_name, table_name) for table_name in get_table_names(db_name)}
-    dataframes["Player_Attributes"] = dataframes["Player_Attributes"].drop_duplicates(subset=["player_api_id"], keep='first')
     return dataframes
 
 
