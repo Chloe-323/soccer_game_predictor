@@ -3,17 +3,19 @@ import get_x
 import importing
 import filter_data
 import pca
+import preprocess
 
 
 def main():
     dfs=importing.get_all_tables('data/database.sqlite')
     dfs=filter_data.filter_data(dfs)
-    #for i in dfs["Team_Attributes"]:
-    #    if dfs["Team_Attributes"][i].hasnans:
-    #      print(dfs["Team_Attributes"][i].name)
+
     X = get_x.get_x(dfs)
     y = get_y.get_y(dfs)
-    # zero-center, normalizing stuff
+
+    # normalizing stuff, split into test and train sets
+    X_train, X_test, y_train, y_test=preprocess.preprocess(X,y)
+
     # unsupervised learning
     X = pca.pca(X)
 
