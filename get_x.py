@@ -1,6 +1,7 @@
 import datetime
 import numpy as np
 
+test = 0
 home_player_start = 5 
 away_player_start = 16
 api_idx = 1
