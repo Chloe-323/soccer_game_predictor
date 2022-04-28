@@ -1,5 +1,7 @@
 import datetime
 import numpy as np
+import json
+import time
 
 home_player_start = 6 
 away_player_start = 17
@@ -65,10 +67,15 @@ def get_x(dfs):
     team_attributes = np.array(dfs["Team_Attributes"])
     x = []
 
+    iterator = 0
+    timer = time.monotonic()
     for i in matches:
+        iterator += 1
+        if iterator % 50 == 0:
+            print(iterator, ":", time.monotonic() - timer)
         x_i = []
         #home team attributes
-        x_i.append(get_team_attributes(team_attributes, i[2]))
+        x_i.extend(get_team_attributes(team_attributes, i[2]))
         #home team players
         for j in i[home_player_start:away_player_start]:
             pa = get_player_attributes(players, player_attributes, j)
