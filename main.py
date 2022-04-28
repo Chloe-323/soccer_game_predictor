@@ -7,7 +7,7 @@ import filter_data
 
 def main():
     dfs=importing.get_all_tables('data/database.sqlite')
-    dfs=preprocessing.filter_data(dfs)
+    dfs=filter_data.filter_data(dfs)
     #for i in dfs["Team_Attributes"]:
     #    if dfs["Team_Attributes"][i].hasnans:
     #      print(dfs["Team_Attributes"][i].name)
