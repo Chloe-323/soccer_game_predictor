@@ -2,7 +2,7 @@ import get_y
 import get_x
 import importing
 import filter_data
-# import pca
+import pca
 
 
 def main():
@@ -13,8 +13,9 @@ def main():
     #      print(dfs["Team_Attributes"][i].name)
     X = get_x.get_x(dfs)
     y = get_y.get_y(dfs)
+    # zero-center, normalizing stuff
     # unsupervised learning
-    # X = pca.pca(X)
+    X = pca.pca(X)
 
     # do logistic, svm, and neural network
 
