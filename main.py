@@ -19,7 +19,10 @@ def main():
     # unsupervised learning
     X = pca.pca(X)
 
-    # do logistic, svm, and neural network
+    # do logistic, svm, and neural network; try different feature transformation
+    # and different regularization techniques, and graph them; table of results
+
+
 
 
 if __name__==main():
