@@ -33,6 +33,16 @@ def get_player_attributes(np_players, np_player_attrs, player_id):
 
 
 
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super(NpEncoder, self).default(obj)
+
 def get_team_attributes(np_team_attr, team_id):
     #the ones we care about: 
     for i in np_team_attr:
@@ -69,6 +79,7 @@ def get_x(dfs):
 
     iterator = 0
     timer = time.monotonic()
+    f = open("stuff.json", "w")
     for i in matches:
         iterator += 1
         if iterator % 50 == 0:
@@ -82,10 +93,14 @@ def get_x(dfs):
             pa[0] = age(i[1], pa[0])
             x_i.extend(pa)
         #away team attributes
-        x_i.append(get_team_attributes(team_attributes, i[3]))
+        x_i.extend(get_team_attributes(team_attributes, i[3]))
         for j in i[away_player_start:]:
             pa = get_player_attributes(players, player_attributes, j)
             pa[0] = age(i[1], pa[0])
             x_i.extend(pa)
         x.append(x_i)
+        strn = json.dumps(x_i, cls=NpEncoder)
+        f.write(strn + "\n")
+        #write to file
+    f.close()
     return np.array(x)
