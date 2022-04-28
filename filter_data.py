@@ -9,19 +9,20 @@ def filter_team_attributes(dfs):
                                             == "Slow", 0, np.where(
         dfs["buildUpPlaySpeedClass"] == "Balanced", 1, 2))
     # drop buildUpPlayDribbling as >1/2 of the entries are nan
-    dfs.drop("buildUpPlayDribbling", 1)
+    dfs=dfs.drop("buildUpPlayDribbling", 1)
+
+    dfs["buildUpPlayDribblingClass"] = np.where(dfs["buildUpPlayDribblingClass"]
+                                            == "Little", 0, np.where(
+        dfs["buildUpPlayDribblingClass"] == "Normal", 1, 2))
 
     dfs["buildUpPlayPositioningClass"] = np.where(
         dfs["buildUpPlayPositioningClass"]
         == "Organised", 0, 1)
     # drop because of value present, therefore redundant
-    dfs.drop("buildUpPlayPassingClass", 1)
-    dfs.drop("chanceCreationPassingClass", 1)
-    dfs.drop("chanceCreationCrossingClass", 1)
-    dfs.drop("chanceCreationShootingClass", 1)
-    dfs.drop("defencePressureClass", 1)
-    dfs.drop("defenceAggressionClass", 1)
-    dfs.drop("defenceTeamWidthClass", 1)
+    dfs=dfs.drop(["buildUpPlayPassingClass","chanceCreationPassingClass",
+        "chanceCreationCrossingClass", "chanceCreationShootingClass",
+        "defencePressureClass", "defenceAggressionClass",
+        "defenceTeamWidthClass"],1)
 
     dfs["chanceCreationPositioningClass"] = np.where(
         dfs["chanceCreationPositioningClass"] == "Organised", 0, 1)

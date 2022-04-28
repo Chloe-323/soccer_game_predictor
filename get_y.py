@@ -11,13 +11,6 @@ def get_y(dfs):
     home_goals=dfs["Match"]["home_team_goal"]
     away_goals=dfs["Match"]["away_team_goal"]
 
-    y=np.zeros((len(home_goals),))
+    y=np.where(home_goals>away_goals,0,(np.where(home_goals==away_goals,.5,1)))
 
-    for i in range(len(home_goals)):
-        if home_goals[i]==away_goals[i]:
-            y[i]=0.5
-        elif home_goals[i]>away_goals[i]:
-            y[i]=0
-        else:
-            y[i]=1
     return y
