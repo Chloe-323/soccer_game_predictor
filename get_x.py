@@ -121,6 +121,7 @@ def get_x(dfs):
                     height
                     weight
     '''
+    x = []
     for i in range(len(dfs["Match"])):
         x_i = []
         date_of_match = dfs["Match"]["date"][i]
@@ -144,3 +145,4 @@ def get_x(dfs):
             for k, v in player_attributes.items():
                 x_i.append(v)
         x.append(x_i)
+    return x
