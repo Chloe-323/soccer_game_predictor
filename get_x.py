@@ -7,7 +7,7 @@ def get_x(dfs):
 
     def player_vals(id):
         '''
-        return a 38x1 array of the player's attributes in FIFA
+        return an array of the player's attributes in FIFA
         :param id: int64
         :return: np.array(float64)
         '''
