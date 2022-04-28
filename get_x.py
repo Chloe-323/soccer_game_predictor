@@ -1,9 +1,8 @@
 import datetime
 import numpy as np
 
-test = 0
-home_player_start = 5 
-away_player_start = 16
+home_player_start = 6 
+away_player_start = 17
 api_idx = 1
 
 
@@ -14,13 +13,11 @@ def player_vals(id):
 
 
 def age(date_of_match_strings, birthday_strings):
-    match_d_split = i.split(" ")[0].split("-")
-    birthday_d_split = i.split(" ")[0].split("-")
-    match_dates = [datetime.date(int(i[0]), int(i[1]), int(i[2])) for i in
-                   match_d_splits]
-    birthday = [datetime.date(int(i[0]), int(i[1]), int(i[2])) for i in
-                birthday_d_splits]
-    return (match_dates[0] - birthday[0]).days
+    dom_splits = date_of_match_strings.split(" ")[0].split("-")
+    bd_splits = birthday_strings.split(" ")[0].split("-")
+    dom = datetime.date(int(dom_splits[0]), int(dom_splits[1]), int(dom_splits[2]))
+    bd = datetime.date(int(bd_splits[0]), int(bd_splits[1]), int(bd_splits[2]))
+    return (dom - bd).days
 
 def get_player_attributes(np_players, np_player_attrs, player_id):
     to_ret = []
@@ -75,13 +72,13 @@ def get_x(dfs):
         #home team players
         for j in i[home_player_start:away_player_start]:
             pa = get_player_attributes(players, player_attributes, j)
-            pa[0] = age([i[0]], [pa[0]])[0]
+            pa[0] = age(i[1], pa[0])
             x_i.extend(pa)
         #away team attributes
         x_i.append(get_team_attributes(team_attributes, i[3]))
         for j in i[away_player_start:]:
             pa = get_player_attributes(players, player_attributes, j)
-            pa[0] = age([i[0]], [pa[0]])[0]
+            pa[0] = age(i[1], pa[0])
             x_i.extend(pa)
         x.append(x_i)
     return np.array(x)
