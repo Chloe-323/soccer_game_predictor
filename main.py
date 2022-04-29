@@ -6,6 +6,7 @@ import pca
 import preprocess
 import json
 import numpy as np
+import logistic
 
 imprt = 0
 
@@ -28,19 +29,18 @@ def main():
         y = [y[i] for i in range(len(y)) if i not in skipped]
 
 
-
-    # normalizing stuff, split into test and train sets
-    X_train, X_test, y_train, y_test=preprocess.preprocess(X,y)
-
     # unsupervised learning
     X= np.array(X)
+
+    X=preprocess.normalize(X)
+
+    # X.shape=(21246, 472); reduced about 250 features and maintain 95% variance
     X = pca.pca(X)
+    X_train, X_test, y_train, y_test=preprocess.split(X,y)
 
     # do logistic, svm, and neural network; try different feature transformation
     # and different regularization techniques, and graph them; table of results
-
-
-
+    logistic.logistic(X_train, y_train)
 
 if __name__==main():
     main()
