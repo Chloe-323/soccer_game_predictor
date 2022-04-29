@@ -5,6 +5,7 @@ import filter_data
 import pca
 import preprocess
 import json
+import numpy as np
 
 imprt = 0
 
@@ -20,7 +21,7 @@ def main():
         with open('stuff.json') as f:
             for l in f:
                 X.append(json.loads(l))
-    print("X:",len(X))
+    # print("X:",len(X))
     #remove skipped rows
     with open('skipped.txt') as f:
         skipped = [int(i) for i in f.read().split(',')]
@@ -32,6 +33,7 @@ def main():
     X_train, X_test, y_train, y_test=preprocess.preprocess(X,y)
 
     # unsupervised learning
+    X= np.array(X)
     X = pca.pca(X)
 
     # do logistic, svm, and neural network; try different feature transformation
