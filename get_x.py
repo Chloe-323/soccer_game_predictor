@@ -79,6 +79,7 @@ def get_x(dfs):
 
     iterator = 0
     skipped = 0
+    skipped_indices = []
     timer = time.monotonic()
     f = open("stuff.json", "w")
     for i in matches:
@@ -105,8 +106,12 @@ def get_x(dfs):
             f.write(strn + "\n")
         except:
             skipped += 1
+            skipped_indices.append(iterator)
             print(i)
         #write to file
     f.close()
     print("skipped", skipped)
+    print("skipped indices", skipped_indices)
+    with open("skipped.txt", "w") as f:
+        f.write(str(skipped_indices))
     return np.array(x)
