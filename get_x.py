@@ -78,29 +78,35 @@ def get_x(dfs):
     x = []
 
     iterator = 0
+    skipped = 0
     timer = time.monotonic()
     f = open("stuff.json", "w")
     for i in matches:
         iterator += 1
         if iterator % 50 == 0:
-            print(iterator, ":", time.monotonic() - timer)
+            print(iterator, ":", str(time.monotonic() - timer)[:5], "seconds")
         x_i = []
         #home team attributes
-        x_i.extend(get_team_attributes(team_attributes, i[2]))
-        #home team players
-        for j in i[home_player_start:away_player_start]:
-            pa = get_player_attributes(players, player_attributes, j)
-            pa[0] = age(i[1], pa[0])
-            x_i.extend(pa)
-        #away team attributes
-        x_i.extend(get_team_attributes(team_attributes, i[3]))
-        for j in i[away_player_start:]:
-            pa = get_player_attributes(players, player_attributes, j)
-            pa[0] = age(i[1], pa[0])
-            x_i.extend(pa)
-        x.append(x_i)
-        strn = json.dumps(x_i, cls=NpEncoder)
-        f.write(strn + "\n")
+        try:
+            x_i.extend(get_team_attributes(team_attributes, i[2]))
+            #home team players
+            for j in i[home_player_start:away_player_start]:
+                pa = get_player_attributes(players, player_attributes, j)
+                pa[0] = age(i[1], pa[0])
+                x_i.extend(pa)
+            #away team attributes
+            x_i.extend(get_team_attributes(team_attributes, i[3]))
+            for j in i[away_player_start:]:
+                pa = get_player_attributes(players, player_attributes, j)
+                pa[0] = age(i[1], pa[0])
+                x_i.extend(pa)
+            x.append(x_i)
+            strn = json.dumps(x_i, cls=NpEncoder)
+            f.write(strn + "\n")
+        except:
+            skipped += 1
+            print(i)
         #write to file
     f.close()
+    print("skipped", skipped)
     return np.array(x)
