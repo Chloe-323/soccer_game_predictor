@@ -16,6 +16,8 @@ def main():
 
     X = [] 
     y = get_y.get_y(dfs)
+    y_one_hot=get_y.get_y_one_hot(dfs)
+
     if imprt == 1:
         X = get_x.get_x(dfs)
     else: #already imported in training.json
@@ -27,7 +29,11 @@ def main():
     with open('skipped.txt') as f:
         skipped = [int(i) for i in f.read().split(',')]
         y = [y[i] for i in range(len(y)) if i not in skipped]
+        y_one_hot = [y_one_hot[i] for i in range(len(y_one_hot)) if i not in skipped]
+    f.close()
 
+    y=np.array(y)
+    y_one_hot=np.array(y_one_hot)
 
     # unsupervised learning
     X= np.array(X)
