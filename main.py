@@ -7,12 +7,9 @@ import preprocess
 import json
 import numpy as np
 import logistic
-<<<<<<< HEAD
 import svm
-=======
 import nn
 import sklearn
->>>>>>> 77dedc37bed503ac66c3c5deaeeeaa1d69ea376b
 
 imprt = 0
 
