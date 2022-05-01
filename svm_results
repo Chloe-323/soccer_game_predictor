@@ -1,0 +1,68 @@
+C=1.0
+w_svm_class:  [[-2.15869233e-05  8.86257548e-04 -5.42177677e-05 ... -4.76842793e-04
+  -4.05535726e-05 -3.36974518e-04]
+ [ 6.09854406e-03  1.28360508e+00  2.00120348e-02 ... -2.57452029e-01
+   4.74856202e-01 -5.13890726e-02]
+ [-7.26018240e-04  8.84926677e-01  6.68626963e-02 ... -1.73048993e-01
+   4.81018573e-01  1.95476437e-01]]
+intercept_svm_class:  [0.99951227 0.5265932  0.06881298]
+Accuracy on training data = 0.544119
+precision:  [0.54826389 0.         0.53330313]
+recall:  [0.86354936 0.         0.51173913]
+fscore:  [0.67070192 0.         0.52229865]
+
+Test data
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Accuracy on test data = 0.529367
+precision:  [0.54442394 0.         0.4917709 ]
+recall:  [0.84665847 0.         0.48727984]
+fscore:  [0.6627086  0.         0.48951507]
+
+C=0.01
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+w_svm_class:  [[-1.46403745e-06  8.29344820e-04 -4.65512668e-05 ... -3.81493185e-04
+   9.92141944e-05 -2.03857487e-04]
+ [-1.17497078e-02  1.19826004e+00  1.79982484e-02 ... -8.67375223e-02
+   8.14843999e-02  2.18779865e-05]
+ [ 1.95583902e-02  9.13455677e-01  3.97103073e-02 ... -2.96454607e-02
+   9.82559985e-02  2.68329360e-02]]
+intercept_svm_class:  [0.99957101 0.52644419 0.05997094]
+Accuracy on training data = 0.542111
+precision:  [0.55036128 0.         0.52080054]
+recall:  [0.8643697  0.         0.50347826]
+fscore:  [0.67251742 0.         0.51199293]
+
+Test data
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Accuracy on test data = 0.534074
+precision:  [0.54692043 0.         0.50228908]
+recall:  [0.84829848 0.         0.50097847]
+fscore:  [0.66505947 0.         0.50163292]
+
+C=0.0001
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+w_svm_class:  [[-1.22779828e-05  4.37203701e-04 -1.15848579e-05 ... -1.08367622e-04
+  -4.04479133e-05 -1.49407355e-04]
+ [-8.09538065e-03  1.21940345e-01  3.45350423e-04 ... -8.80302424e-04
+   9.81808149e-04 -1.06431360e-04]
+ [ 1.48170965e-03  6.75870229e-02  1.80610848e-03 ... -1.35444831e-04
+   1.31751993e-03  2.85272444e-04]]
+intercept_svm_class:  [ 0.99975842  0.9355123  -0.91572693]
+Accuracy on training data = 0.459018
+precision:  [0.45901845 0.         0.        ]
+recall:  [1. 0. 0.]
+fscore:  [0.62921542 0.         0.        ]
+
+Test data
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/shing6444/PycharmProjects/ml_project/venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1318: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Accuracy on test data = 0.459149
+precision:  [0.4591491 0.        0.       ]
+recall:  [1. 0. 0.]
+fscore:  [0.62933815 0.         0.        ]

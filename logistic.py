@@ -3,6 +3,7 @@ from sklearn.metrics import precision_recall_fscore_support
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.kernel_approximation import Nystroem
+import numpy as np
 
 # all comments are values on X_normalized except otherwise specified
 
@@ -82,7 +83,9 @@ def train_and_print_info(X_test, X_train, logreg, y_test, y_train):
     y_hat_logreg = logreg.predict(X_train)
     w_logreg = logreg.coef_
     intercept_logreg = logreg.intercept_
-    print('w_logreg: ', w_logreg)
+    with np.printoptions(threshold=np.inf):
+        print('w_logreg: ', w_logreg)
+
     print('intercept_logreg: ', intercept_logreg)
     acc_logreg = logreg.score(X_train, y_train)
     print("Accuracy on training data = %f" % acc_logreg)

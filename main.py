@@ -7,6 +7,7 @@ import preprocess
 import json
 import numpy as np
 import logistic
+import svm
 
 imprt = 0
 
@@ -55,7 +56,7 @@ def main():
     # logistic.logistic(X_normalized,y)
     # logistic.logistic(X_minmax, y)
 
-
+    svm.svm_model(X_minmax,y)
 
 
 if __name__==main():
