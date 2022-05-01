@@ -2,14 +2,14 @@ import numpy as np
 
 
 def filter_team_attributes(dfs):
-    dfs = dfs.drop("team_fifa_api_id", 1)
-    dfs = dfs.drop("date", 1)
+    dfs = dfs.drop("team_fifa_api_id", axis=1)
+    dfs = dfs.drop("date", axis=1)
     dfs = dfs.drop_duplicates(subset=["team_api_id"], keep='last')
     dfs["buildUpPlaySpeedClass"] = np.where(dfs["buildUpPlaySpeedClass"]
                                             == "Slow", 0, np.where(
         dfs["buildUpPlaySpeedClass"] == "Balanced", 1, 2))
     # drop buildUpPlayDribbling as >1/2 of the entries are nan
-    dfs=dfs.drop("buildUpPlayDribbling", 1)
+    dfs=dfs.drop("buildUpPlayDribbling", axis=1)
 
     dfs["buildUpPlayDribblingClass"] = np.where(dfs["buildUpPlayDribblingClass"]
                                             == "Little", 0, np.where(
@@ -22,7 +22,7 @@ def filter_team_attributes(dfs):
     dfs=dfs.drop(["buildUpPlayPassingClass","chanceCreationPassingClass",
         "chanceCreationCrossingClass", "chanceCreationShootingClass",
         "defencePressureClass", "defenceAggressionClass",
-        "defenceTeamWidthClass"],1)
+        "defenceTeamWidthClass"],axis=1)
 
     dfs["chanceCreationPositioningClass"] = np.where(
         dfs["chanceCreationPositioningClass"] == "Organised", 0, 1)
@@ -34,8 +34,8 @@ def filter_team_attributes(dfs):
 
 def filter_player_attributes(dfs):
     dfs = dfs.drop_duplicates(subset=["player_api_id"], keep='first')
-    dfs = dfs.drop("player_fifa_api_id", 1)
-    dfs = dfs.drop("date", 1)
+    dfs = dfs.drop("player_fifa_api_id", axis=1)
+    dfs = dfs.drop("date", axis=1)
 
     # drop because insufficient or undefined data
     has_nan = ["attacking_work_rate",
@@ -48,7 +48,7 @@ def filter_player_attributes(dfs):
                "defensive_work_rate",  # this column has full but weird inputs
                "sliding_tackle"]
     for i in has_nan:
-        dfs = dfs.drop(i, 1)
+        dfs = dfs.drop(i, axis=1)
 
     dfs["preferred_foot"] = np.where(dfs["preferred_foot"] == "left", 0, 1)
 
@@ -68,8 +68,8 @@ def filter_match(dfs):
 
 
 def filter_data(dfs):
-    dfs["Player"] = dfs["Player"].drop('player_name', 1)
-    dfs["Player"] = dfs["Player"].drop('player_fifa_api_id', 1)
+    dfs["Player"] = dfs["Player"].drop('player_name', axis=1)
+    dfs["Player"] = dfs["Player"].drop('player_fifa_api_id', axis=1)
 
     dfs["Match"]=filter_match(dfs["Match"])
     dfs["Team_Attributes"] = filter_team_attributes(dfs["Team_Attributes"])
