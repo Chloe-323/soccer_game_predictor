@@ -22,9 +22,9 @@ def svm_model(X,y):
     with parallel_backend('threading',n_jobs=-1):
         linear_kernel(X_test,X_train,y_test,y_train)
 
-        polynomial_kernel(X_test,X_train,y_test,y_train)
+        #polynomial_kernel(X_test,X_train,y_test,y_train)
 
-        rbf_kernel(X_test,X_train,y_test,y_train)
+        #rbf_kernel(X_test,X_train,y_test,y_train)
 
 
 def rbf_kernel(X_test,X_train,y_test,y_train):
@@ -46,7 +46,7 @@ def polynomial_kernel(X_test, X_train, y_test, y_train):
 def linear_kernel(X_test, X_train, y_test, y_train):
     for i in range(4,6):
         for j in [1,.01,.0001]:
-            if i==4 and j==1:
+            if not (i==4 and j==1):
                 continue # just did it before stopping and make editions
             print(f"Linear Kernel: degree{i}; C={j}")
             svm_class = svm.SVC(C=j, degree=i, kernel='linear')
