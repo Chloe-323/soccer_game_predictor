@@ -2,12 +2,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
 from sklearn.kernel_approximation import Nystroem
 
+# all comments are values on X_normalized except otherwise specified
 
 def logistic(X,y):
-    #stratification did not change anything
+    # stratification did not change anything
     X_train, X_test, y_train, y_test=train_test_split(X, y,stratify=y,
                                                       test_size=0.25)
 
@@ -17,6 +17,8 @@ def logistic(X,y):
     choose_regularization(X_test, X_train, y_test, y_train,100000000)
     # training fscore:  [0.67586285 0.16028997 0.53306052]; accuracy .553910
     # testing fscore:  [0.6493913  0.11163895 0.49467085]; accuracy .517696
+    # minmax: no significant difference
+
     choose_regularization(X_test, X_train, y_test, y_train,.01)
     choose_regularization(X_test, X_train, y_test, y_train,.0001)
     # conclusion: no significant impact on accuracy. More regularization
@@ -32,7 +34,7 @@ def logistic(X,y):
 
     # Multinomial multi_class
     multinomial(X_test,X_train,y_test,y_train)
-    # noticeable increase of fscore in draw scenarios
+    # noticeable increase of fscore in draw scenarios, raising accuracy by .01
 
     # dual_formalization(X_test,X_train,y_test,y_train)
     # general decrease of performance; commented because it's slow

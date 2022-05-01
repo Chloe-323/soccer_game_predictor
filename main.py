@@ -38,16 +38,25 @@ def main():
     # unsupervised learning
     X= np.array(X)
 
-    X=preprocess.normalize(X)
+    X_normalized=preprocess.normalize(X)
+    X_minmax=preprocess.min_max(X)
 
-    # X.shape=(21246, 472); reduced about 250 features and maintain 95% variance
-    X = pca.pca(X)
+    # X_minmax.shape=(21246,399)
+    # X_normalized.shape=(21246, 472)
+    # min_max gets a better result in PCA
+    X_minmax = pca.pca(X_minmax)
+    X_normalized=pca.pca(X_normalized)
+
 
     # moved splitting into individual functions for models
 
     # do logistic, svm, and neural network; try different feature transformation
     # and different regularization techniques, and graph them; table of results
-    logistic.logistic(X, y)
+    # logistic.logistic(X_normalized,y)
+    # logistic.logistic(X_minmax, y)
+
+
+
 
 if __name__==main():
     main()
