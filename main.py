@@ -7,17 +7,24 @@ import preprocess
 import json
 import numpy as np
 import logistic
+import nn
+import sklearn
 
 imprt = 0
 
 def main():
+    print("Importing data...")
     dfs=importing.get_all_tables('data/database.sqlite')
+    print("Done importing data.")
+    print("Filtering data...")
     dfs=filter_data.filter_data(dfs)
+    print("Done filtering data.")
 
     X = [] 
     y = get_y.get_y(dfs)
     y_one_hot=get_y.get_y_one_hot(dfs)
 
+    print("Getting X...")
     if imprt == 1:
         X = get_x.get_x(dfs)
     else: #already imported in training.json
@@ -31,10 +38,14 @@ def main():
         y = [y[i] for i in range(len(y)) if i not in skipped]
         y_one_hot = [y_one_hot[i] for i in range(len(y_one_hot)) if i not in skipped]
     f.close()
+    print("Done getting X.")
 
+    print("Getting Y...")
     y=np.array(y)
     y_one_hot=np.array(y_one_hot)
+    print("Done getting Y.")
 
+    print("Preprocessing data...")
     # unsupervised learning
     X= np.array(X)
 
@@ -46,6 +57,7 @@ def main():
     # min_max gets a better result in PCA
     X_minmax = pca.pca(X_minmax)
     X_normalized=pca.pca(X_normalized)
+    print("Done preprocessing data.")
 
 
     # moved splitting into individual functions for models
@@ -55,7 +67,19 @@ def main():
     # logistic.logistic(X_normalized,y)
     # logistic.logistic(X_minmax, y)
 
-
+    #no train vs test split?
+    
+    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X_normalized, y_one_hot, test_size=0.2)
+    #shape of X_train:
+    print("X_train:",X_train.shape)
+    #shape of X_test:
+    print("X_test:",X_test.shape)
+    #shape of y_train:
+    print("y_train:",y_train.shape)
+    #shape of y_test:
+    print("y_test:",y_test.shape)
+    nn.neural_network(X_train, y_train, X_test, y_test)
+    
 
 
 if __name__==main():
