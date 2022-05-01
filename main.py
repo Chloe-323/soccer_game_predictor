@@ -10,6 +10,7 @@ import logistic
 import svm
 import nn
 import sklearn
+import sys
 
 imprt = 0
 
@@ -68,10 +69,6 @@ def main():
     # logistic.logistic(X_normalized,y)
     # logistic.logistic(X_minmax, y)
 
-    svm.svm_model(X_minmax,y)
-
-    #no train vs test split?
-    
     X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X_normalized, y_one_hot, test_size=0.2)
     #shape of X_train:
     print("X_train:",X_train.shape)
@@ -81,7 +78,17 @@ def main():
     print("y_train:",y_train.shape)
     #shape of y_test:
     print("y_test:",y_test.shape)
-    nn.neural_network(X_train, y_train, X_test, y_test)
+
+    if 'logistic' in sys.argv:
+        logistic.logistic(X_normalized,y)
+    if 'svm' in sys.argv:
+        svm.svm(X_normalized,y)
+    if 'nn' in sys.argv:
+        nn.neural_network(X_train, y_train, X_test, y_test)
+
+    if 'nn' not in sys.argv and 'svm' not in sys.argv and 'logistic' not in sys.argv:
+        print("Please specify one or more models to run.")
+        print("Usage: python3 main.py [logistic|svm|nn]")
 
 
 
