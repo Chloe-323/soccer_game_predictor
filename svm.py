@@ -13,18 +13,18 @@ def svm_model(X,y):
     y_train = LabelEncoder().fit_transform(y_train)
     y_test = LabelEncoder().fit_transform(y_test)
     # L2 regularization; one-versus-rest
-    # choose_regularization(X_test, X_train, y_test, y_train)
-    #choose_regularization(X_test, X_train, y_test, y_train, .01)
-    #choose_regularization(X_test, X_train, y_test, y_train, .0001)
+    choose_regularization(X_test, X_train, y_test, y_train)
+    choose_regularization(X_test, X_train, y_test, y_train, .01)
+    choose_regularization(X_test, X_train, y_test, y_train, .0001)
 
     from joblib import parallel_backend
 
     with parallel_backend('threading',n_jobs=-1):
         linear_kernel(X_test,X_train,y_test,y_train)
 
-        #polynomial_kernel(X_test,X_train,y_test,y_train)
+        polynomial_kernel(X_test,X_train,y_test,y_train)
 
-        #rbf_kernel(X_test,X_train,y_test,y_train)
+        rbf_kernel(X_test,X_train,y_test,y_train)
 
 
 def rbf_kernel(X_test,X_train,y_test,y_train):
@@ -44,7 +44,7 @@ def polynomial_kernel(X_test, X_train, y_test, y_train):
             non_linear_train_and_print_info(X_test, X_train, svm_class, y_test, y_train)
 
 def linear_kernel(X_test, X_train, y_test, y_train):
-    for i in range(4,6):
+    for i in range(2,6):
         for j in [1,.01,.0001]:
             if not (i==4 and j==1):
                 continue # just did it before stopping and make editions

@@ -20,6 +20,8 @@ def logistic(X,y):
     # testing fscore:  [0.6493913  0.11163895 0.49467085]; accuracy .517696
     # minmax: no significant difference
 
+    choose_regularization(X_test, X_train, y_test, y_train,1)
+    choose_regularization(X_test, X_train, y_test, y_train,.1)
     choose_regularization(X_test, X_train, y_test, y_train,.01)
     choose_regularization(X_test, X_train, y_test, y_train,.0001)
     # conclusion: no significant impact on accuracy. More regularization
@@ -27,7 +29,8 @@ def logistic(X,y):
     # increase test accuracy and decrease training accuracy
 
     # L1 regularization; one-versus-rest
-    choose_regularization(X_test, X_train, y_test, y_train,100000000,'l1')
+    choose_regularization(X_test, X_train, y_test, y_train,1,'l1')
+    choose_regularization(X_test, X_train, y_test, y_train,.1,'l1')
     choose_regularization(X_test, X_train, y_test, y_train,.01,'l1')
     choose_regularization(X_test, X_train, y_test, y_train,.0001,'l1')
     # conclusion: f-score for draw become 0 as C become smaller, therefore
@@ -50,12 +53,13 @@ def logistic(X,y):
 
 def polynomial_transformation(X_test, X_train, y_test, y_train):
     for i in range(2,6):
-        print(f"Polynomial: degree {i}")
-        feature_map_nystroem = Nystroem(degree=i)
-        X_transformed=feature_map_nystroem.fit_transform(X_train)
-        X_test_transformed=feature_map_nystroem.fit_transform(X_test)
-        logreg = LogisticRegression(solver='saga') # lbfgs cannot converge, saga can
-        train_and_print_info(X_test_transformed, X_transformed, logreg, y_test, y_train)
+        for j in [1,.1,.01,.0001]:
+            print(f"Polynomial: degree {i}; C={j}")
+            feature_map_nystroem = Nystroem(degree=i)
+            X_transformed=feature_map_nystroem.fit_transform(X_train)
+            X_test_transformed=feature_map_nystroem.fit_transform(X_test)
+            logreg = LogisticRegression(C=j,solver='saga') # lbfgs cannot converge, saga can
+            train_and_print_info(X_test_transformed, X_transformed, logreg, y_test, y_train)
 
 def choose_regularization(X_test, X_train, y_test, y_train,C=100000000.,penalty_term='l2'):
     print(f"C={C}")
@@ -65,18 +69,19 @@ def choose_regularization(X_test, X_train, y_test, y_train,C=100000000.,penalty_
 
 def multinomial(X_test, X_train, y_test, y_train):
     # does not regularize and transform
-    print("Multinomial with no regularization")
-    logreg = LogisticRegression(C=100000000, multi_class='multinomial')
-    train_and_print_info(X_test, X_train, logreg, y_test, y_train)
+    for i in [1,.1,.01,.0001]:
+        print(f"Multinomial with no regularization with C={i}")
+        logreg = LogisticRegression(C=i, multi_class='multinomial')
+        train_and_print_info(X_test, X_train, logreg, y_test, y_train)
 
-
+'''
 def dual_formalization(X_test, X_train, y_test, y_train):
     # does not regularize and transform
     print("Dual formalization with no regularization")
     logreg = LogisticRegression(C=100000000, multi_class='ovr', dual=True,
                                 solver='liblinear')
     train_and_print_info(X_test, X_train, logreg, y_test, y_train)
-
+'''
 
 def train_and_print_info(X_test, X_train, logreg, y_test, y_train):
     logreg.fit(X_train, y_train)
