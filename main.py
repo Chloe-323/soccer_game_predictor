@@ -86,9 +86,9 @@ def main():
     print("y_test:",y_test.shape)
 
     if 'logistic' in sys.argv:
-        logistic.logistic(X_normalized,y)
+        logistic.logistic(X_minmax,y)
     if 'svm' in sys.argv:
-        svm.svm(X_normalized,y)
+        svm.svm_model(X_minmax,y)
     if 'nn' in sys.argv:
         nn.neural_network(X_train, y_train, X_test, y_test, (21, 21, 21, 21,21,21))
 
