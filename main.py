@@ -15,6 +15,11 @@ import sys
 imprt = 0
 
 def main():
+    if 'nn' not in sys.argv and 'svm' not in sys.argv and 'logistic' not in sys.argv:
+        print("Please specify one or more models to run.")
+        print("Usage: python3 main.py [logistic|svm|nn]")
+        exit()
+
     print("Importing data...")
     dfs=importing.get_all_tables('data/database.sqlite')
     print("Done importing data.")
@@ -69,7 +74,8 @@ def main():
     # logistic.logistic(X_normalized,y)
     # logistic.logistic(X_minmax, y)
 
-    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X_normalized, y_one_hot, test_size=0.2)
+    print("Minmax:")
+    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X_minmax, y_one_hot, stratify=y_one_hot, test_size=0.2)
     #shape of X_train:
     print("X_train:",X_train.shape)
     #shape of X_test:
@@ -84,11 +90,7 @@ def main():
     if 'svm' in sys.argv:
         svm.svm_model(X_minmax,y)
     if 'nn' in sys.argv:
-        nn.neural_network(X_train, y_train, X_test, y_test)
-
-    if 'nn' not in sys.argv and 'svm' not in sys.argv and 'logistic' not in sys.argv:
-        print("Please specify one or more models to run.")
-        print("Usage: python3 main.py [logistic|svm|nn]")
+        nn.neural_network(X_train, y_train, X_test, y_test, (21, 21, 21, 21,21,21))
 
 
 
